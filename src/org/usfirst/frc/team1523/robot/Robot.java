@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.SampleRobot;
 import edu.wpi.first.wpilibj.Timer;
+import com.ctre.CANTalon;
 
 /**
  * This sample program shows how to control a motor using a joystick. In the
@@ -19,13 +20,15 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class Robot extends SampleRobot {
 
-	private SpeedController motor = new Talon(0); // initialize the motor as a
+//	private SpeedController motor = new Talon(0); // initialize the motor as a
 													// Talon on channel 0
 	private Joystick stick = new Joystick(0); // initialize the joystick on port
 												// 0
 
 	private final double kUpdatePeriod = 0.005; // update every 0.005 seconds/5
 												// milliseconds (200Hz)
+	
+	CANTalon motorL = new CANTalon(13);
 
 	public Robot() {
 	}
@@ -39,7 +42,7 @@ public class Robot extends SampleRobot {
 			// Set the motor's output.
 			// This takes a number from -1 (100% speed in reverse) to +1 (100%
 			// speed going forward)
-			motor.set(stick.getY());
+			motorL.set(stick.getY());
 
 			Timer.delay(kUpdatePeriod); // wait 5ms to the next update
 		}
