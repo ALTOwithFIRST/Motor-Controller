@@ -66,7 +66,7 @@ public class Robot extends SampleRobot {
 		new Thread(() -> {
             UsbCamera camera = CameraServer.getInstance().startAutomaticCapture();
             camera.setResolution(640, 480);
-            camera.setExposureManual(-20);
+            camera.setExposureManual(0);
             
             MjpegServer mjpegserver1 = new MjpegServer("serve_USB Camera 0", 1181);
             
@@ -113,12 +113,12 @@ public class Robot extends SampleRobot {
 				double TargetCenterX = SmartDashboard.getNumber("TargetCenterX", 0.0);
 				double TargetWidth = SmartDashboard.getNumber("TargetWidth", 0.0);
 				
-				double error = centeravg - TargetCenterX;
+				double error = TargetCenterX - centeravg;
 				error /= 320;
 				lastTargetPosition = error;
 				double diffError = error - prevError;
 				prevError = error;
-				double rotation = kp * error + kd * diffError;
+				double rotation = -kp * error - kd * diffError;
 				
 				if (rotation > MAX_ROTATION) rotation = MAX_ROTATION;
 				if (rotation < -MAX_ROTATION) rotation = -MAX_ROTATION;
